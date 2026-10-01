@@ -1,12 +1,11 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         st=[]
-        m={')':'(','}':'{',']':'['}
-        for c in s:
-            if c in m:
-                t=st.pop() if st else '#'
-                if m[c]!=t:
-                    return False
+        pair={')':'(',']':'[','}':'{'}
+        for ch in s:
+            if ch in '([{':
+                st.append(ch)
             else:
-                st.append(c)
-        return not st
+                if not st or st.pop()!=pair[ch]:
+                    return False
+        return len(st)==0
